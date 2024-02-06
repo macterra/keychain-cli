@@ -3,8 +3,13 @@ import * as bip39 from 'bip39';
 import HDKey from 'hdkey';
 import canonicalize from 'canonicalize';
 import { JSONSchemaFaker } from "json-schema-faker";
+import axios from 'axios';
 import * as cipher from './cipher.js';
-import * as gatekeeper from './gatekeeper.js';
+
+let gatekeeper;
+
+//import * as gatekeeper from './gatekeeper.js';
+gatekeeper = await import('./gatekeeper.js');
 
 const walletName = 'wallet.json';
 

@@ -29,7 +29,7 @@ app.get('/did/:did', async (req, res) => {
 
 app.post('/did', async (req, res) => {
     try {
-        const { txn } = req.body;
+        const txn = req.body;
         const did = await gatekeeper.createDid(txn);
         res.json({ did: did });
     } catch (error) {
@@ -38,8 +38,10 @@ app.post('/did', async (req, res) => {
 });
 
 const port = 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+export default server;
 
 

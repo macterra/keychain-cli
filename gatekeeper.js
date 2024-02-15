@@ -6,6 +6,7 @@ import fs from 'fs';
 import canonicalize from 'canonicalize';
 import { createHelia } from 'helia';
 import { FsBlockstore } from 'blockstore-fs';
+import cbor from 'cbor';
 import * as cipher from './cipher.js';
 import * as network from './ipfs.js';
 
@@ -92,8 +93,18 @@ function submitTxn(did, registry, txn, time) {
 }
 
 export async function anchorSeed(seed) {
-    const cid = await ipfs.add(JSON.parse(canonicalize(seed)));
+    const anchor = JSON.parse(canonicalize(seed));
+    const cid = await ipfs.add(anchor);
     const did = `did:mdip:${cid.toString(base58btc)}`;
+
+    const data = cbor.encode(anchor);
+    const alt = base58btc.encode(data);
+
+    console.log(seed);
+    console.log(data);
+    console.log(data.length);
+    console.log(alt);
+    console.log(alt.length);
 
     return did;
 }

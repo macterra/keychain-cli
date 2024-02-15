@@ -33,8 +33,9 @@ let ipfs = null;
 
 export async function start() {
     if (!ipfs) {
-        const blockstore = new FsBlockstore('./ipfs');
-        helia = await createHelia({ blockstore });
+        //const blockstore = new FsBlockstore('./ipfs');
+        //helia = await createHelia({ blockstore });
+        helia = network.createHeliaNode();
         ipfs = json(helia);
     }
 }
